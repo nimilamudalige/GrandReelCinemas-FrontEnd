@@ -1,0 +1,31 @@
+import { useEffect } from "react";
+import { MovieCard } from "../../common/Event/MovieCard.tsx";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../../../store/store.ts";
+import { getAllMovies } from "../../../slices/movieSlice.ts";
+import type { MovieData } from "../../../models/MovieData.ts";
+
+export function Home() {
+    const dispatch = useDispatch<AppDispatch>();
+    const { list } = useSelector((state: RootState) => state.movies);
+
+    useEffect(() => {
+        dispatch(getAllMovies());
+        // Fetch all available movie listings
+    }, []);
+
+    return (
+        <div className="min-h-screen py-8 bg-gradient-to-b from-black via-gray-900 to-gray-800">
+            <h1 className="text-4xl font-bold text-center text-white mb-10 tracking-wide">
+                🎥 Now Showing at GrandReel Cinemas
+            </h1>
+            <div className="flex flex-wrap justify-center items-center gap-6 px-4">
+                {
+                    list.map((movie: MovieData) => (
+                        <MovieCard key={movie.id} data={movie} />
+                    ))
+                }
+            </div>
+        </div>
+    );
+}
