@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { backendApi } from "../../../api.ts";
+import {getUserFromToken} from "../../../auth/auth.ts";
+import type { UserData } from "../../../models/UserData.ts";
 
 type FormData = {
     username: string;
@@ -12,6 +14,7 @@ export function Login() {
     const { register, handleSubmit } = useForm<FormData>();
 
     const authenticateUser = async (data: FormData) => {
+        console.log("Login data:", data);
         try {
             const userCredentials = {
                 username: data.username,  // assuming your backend uses "username" for email
@@ -19,15 +22,24 @@ export function Login() {
             };
 
             const response = await backendApi.post('/auth/login', userCredentials);
+            console.log("Login response:", response.data);
+            const user:UserData = getUserFromToken(response.data.accessToken);
             const accessToken = response.data.accessToken;
             const refreshToken = response.data.refreshToken;
 
             localStorage.setItem('token', accessToken);
             localStorage.setItem('refreshToken', refreshToken);
 
+            localStorage.setItem('username',user.username as String);
+            localStorage.setItem('role', user.role as String);
+
             alert("Successfully logged in!");
-            navigate('/');
-        } catch (error) {
+            if (user.role === "admin") {
+                navigate('/AdminDashboard');
+            } else {
+                navigate('/Home');
+            }
+            } catch (error) {
             console.error(error);
             alert("Login failed");
         }

@@ -29,14 +29,6 @@ export const saveMovie = createAsyncThunk(
         return await response.data;
     }
 );
-export const updateMovie = createAsyncThunk(
-    'movies/updateMovie',
-    async (movie: MovieData) => {
-        console.log("Updating movie:", movie);
-        const response = await backendApi.put(`/movies/update/${movie.id}`, movie);
-        return await response.data;
-    }
-);
 
 const moviesSlice = createSlice({
     name: 'movies',

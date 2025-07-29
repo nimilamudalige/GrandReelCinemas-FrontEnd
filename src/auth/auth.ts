@@ -24,7 +24,11 @@ export const isTokenExpired = (token: string): boolean => {
  */
 export const getUserFromToken = (token: string): UserData => {
     try {
-        return jwtDecode<UserData>(token);
+        const decodedToken = jwtDecode<any>(token);
+        return {
+            username: decodedToken.username || null,
+            role: decodedToken.role || null
+        }
     } catch (error) {
         console.error("Error decoding token:", error);
         return { username: null, role: null };
