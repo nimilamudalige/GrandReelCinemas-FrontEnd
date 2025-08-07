@@ -3,15 +3,15 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { updateMovie, getAllMovies } from "../../../slices/movieSlice.ts";
-import type { RootState, AppDispatch } from "../../../store/store.ts";
+import type { RootState } from "../../../store/store.ts";
 
 export function UpdateMovie() {
     const { id } = useParams(); // Get the movie ID from the URL
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const { register, handleSubmit, reset, setValue } = useForm();
     const movie = useSelector((state: RootState) =>
-        state.movies.list.find((movie) => movie.id === Number(id)) // Convert id to number
+        state.movies.list.find((movie) => movie.id === id)
     );
 
     useEffect(() => {
@@ -26,11 +26,6 @@ export function UpdateMovie() {
 
     const onSubmit = async (data: any) => {
         try {
-            if (!movie) {
-                alert("Movie not found!");
-                return;
-            }
-
             const updatedMovie = { ...movie, ...data };
             await dispatch(updateMovie(updatedMovie)); // Update the movie in the database
             dispatch(getAllMovies()); // Refresh the movie list

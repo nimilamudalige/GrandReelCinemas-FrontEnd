@@ -16,8 +16,15 @@ const initialState: MovieState = {
 export const getAllMovies = createAsyncThunk(
     'movies/getAllMovies',
     async () => {
-        const response = await backendApi.get("/movies/all");
-        return await response.data;
+        try {
+            console.log("Fetching all movies...");
+            const response = await backendApi.get("/movies/all");
+            console.log("Fetched movies:", response.data);
+            return response.data;
+        } catch (error) {
+            console.error("Error fetching movies:", error);
+            throw error;
+        }
     }
 );
 
@@ -29,12 +36,23 @@ export const saveMovie = createAsyncThunk(
         return await response.data;
     }
 );
+
 export const updateMovie = createAsyncThunk(
     'movies/updateMovie',
     async (movie: MovieData) => {
         console.log("Updating movie:", movie);
         const response = await backendApi.put(`/movies/update/${movie.id}`, movie);
         return await response.data;
+    }
+);
+
+// Thunk to delete a movie
+export const deleteMovie = createAsyncThunk(
+    'movies/deleteMovie',
+    async (id: string) => {
+        console.log("Deleting movie with ID:", id);
+        await backendApi.delete(`/movies/delete/${id}`);
+        return id; // Return the deleted movie ID
     }
 );
 
@@ -53,6 +71,14 @@ const moviesSlice = createSlice({
             .addCase(getAllMovies.rejected, (state, action) => {
                 state.error = action.error.message;
                 alert("Error loading movies: " + state.error);
+            })
+            .addCase(deleteMovie.fulfilled, (state, action) => {
+                // @ts-ignore
+                state.list = state.list.filter((movie) => movie.id !== action.payload);
+            })
+            .addCase(deleteMovie.rejected, (state, action) => {
+                state.error = action.error.message;
+                alert("Error deleting movie: " + state.error);
             });
     }
 });

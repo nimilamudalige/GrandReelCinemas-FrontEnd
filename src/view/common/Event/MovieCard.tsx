@@ -13,17 +13,12 @@ type CartItem = {
     itemCount: number;
 };
 
-const images: Record<string, string> = import.meta.glob(
-    '../../../assets/movies/*',
-    { eager: true, import: 'default' }
-);
-
 export function MovieCard({ data }: MovieCardProps) {
-    const image = images[`../../../assets/movies/${data.image}`];
+    console.log("Rendering MovieCard for:", data.name, "ID:", data.id, "Image:", data.image);
     const dispatch = useDispatch<AppDispatch>();
 
     const item = useSelector((state: RootState) =>
-        state.cart.items.find((cartItem: CartItem) => cartItem.product.id === String(data.id))
+        state.bookingCart.items.find((cartItem: CartItem) => cartItem.product.id === String(data.id))
     );
 
     const addToCart = () => {
@@ -34,7 +29,7 @@ export function MovieCard({ data }: MovieCardProps) {
         <div className="grandreel-card bg-[#121212] text-white rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] w-[15rem] h-[22rem] border border-gray-800">
             <img
                 className="grandreel-poster w-full h-[12rem] object-cover"
-                src={image}
+                src={data.image}
                 alt={data.name}
             />
 
@@ -42,11 +37,6 @@ export function MovieCard({ data }: MovieCardProps) {
                 <h3 className="grandreel-title text-lg font-semibold text-white truncate">
                     {data.name}
                 </h3>
-
-                <div className="grandreel-price mt-2 text-yellow-400 font-bold text-lg">
-                    {data.price}
-                    <small className="text-sm text-gray-300 ml-1">{data.currency}</small>
-                </div>
 
                 <div className="grandreel-action mt-auto">
                     {item ? (
@@ -64,3 +54,4 @@ export function MovieCard({ data }: MovieCardProps) {
         </div>
     );
 }
+

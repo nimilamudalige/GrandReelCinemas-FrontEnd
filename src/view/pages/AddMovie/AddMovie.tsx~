@@ -51,15 +51,19 @@ export function AddMovie() {
                 // Get signature from backend with matching preset
                 const signatureResponse = await fetch("http://localhost:3000/api/cloudinary/signature", {
                     method: "POST",
-                    headers: {"Content-Type": "application/json"},
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        timestamp
+                        timestamp,
+                        upload_preset: "my_preset" // Match with backend
                     }),
                 });
-                if (!signatureResponse.ok){
-                    throw new Error("Failed to fetch signature from backend");
+
+                if (!signatureResponse.ok) {
+                    throw new Error("Failed to fetch Cloudinary signature");
                 }
-               const { signature } = await signatureResponse.json();
+
+                const signatureData = await signatureResponse.json();
+                const signature = signatureData.signature;
 
                 // Upload to Cloudinary with matching preset
                 const uploadData = new FormData();

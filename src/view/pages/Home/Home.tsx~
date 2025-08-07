@@ -10,9 +10,8 @@ export function Home() {
     const { list } = useSelector((state: RootState) => state.movies);
 
     useEffect(() => {
-        console.log("Fetching all movies...", list);
         dispatch(getAllMovies());
-
+        console.log("Fetching all movies...", list);
         // Fetch all available movie listings
     }, []);
 

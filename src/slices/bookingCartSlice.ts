@@ -55,3 +55,4 @@ export const {
 } = bookingCartSlice.actions;
 
 export default bookingCartSlice.reducer;
+
