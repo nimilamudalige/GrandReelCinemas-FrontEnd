@@ -33,7 +33,7 @@ export function Navbar() {
                             <Link to="/now-showing">Now Showing</Link>
                         </li>
                         <li className="text-white hover:text-[#f5c518] transition-all">
-                            <Link to="/bookings">My Bookings</Link>
+                            <Link to="/booking">My Bookings</Link>
                         </li>
                         <li className="text-white hover:text-[#f5c518] transition-all">
                             <Link to="/contact">Contact</Link>

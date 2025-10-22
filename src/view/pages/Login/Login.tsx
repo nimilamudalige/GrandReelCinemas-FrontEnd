@@ -29,7 +29,8 @@ export function Login() {
 
             localStorage.setItem('token', accessToken);
             localStorage.setItem('refreshToken', refreshToken);
-
+            localStorage.setItem('userId', user.id as String); // Assuming username is used as userId
+            // @ts-ignore
             localStorage.setItem('username',user.username as String);
             localStorage.setItem('role', user.role as String);
 
@@ -65,7 +66,7 @@ export function Login() {
 
                 {/* Title */}
                 <h2 className="text-3xl font-bold text-green-800 text-center mb-6">
-                    Welcome Back
+                    Welcome GrandReel Cinema
                 </h2>
 
                 {/* Go Back */}
@@ -74,7 +75,7 @@ export function Login() {
                         onClick={() => navigate("/")}
                         className="text-sm text-green-600 hover:text-green-900 underline"
                     >
-                        ← Go Back
+                          Sign Up
                     </button>
                 </div>
 
@@ -136,13 +137,11 @@ export function Login() {
                 {/* Social Login */}
                 <div className="flex gap-3">
                     <button className="flex-1 py-2 border border-gray-300 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-50 transition">
-                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="w-5 h-5" alt="Google" />
-                        Google
+                        You don't have an account?
+                        <a href="#" className="text-green-600 hover:text-green-900"  onClick={() => navigate("/register")}
+                        >Sign Up</a>
                     </button>
-                    <button className="flex-1 py-2 border border-gray-300 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-50 transition">
-                        <img src="https://www.svgrepo.com/show/452196/facebook-1.svg" className="w-5 h-5" alt="Facebook" />
-                        Facebook
-                    </button>
+
                 </div>
             </div>
         </div>

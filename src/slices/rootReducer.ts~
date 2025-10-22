@@ -6,7 +6,7 @@ import paymentSlice from "./paymentSlice.ts";
 export const rootReducer = combineReducers({
     movies: movieReducer,
     bookingCart: bookingCartReducer,
-    payment: paymentSlice
+
 });
 
 export type RootReducerState = ReturnType<typeof rootReducer>;

@@ -44,6 +44,9 @@ const bookingCartSlice = createSlice({
             if (item && item.ticketCount > 1) {
                 item.ticketCount -= 1;
             }
+        },
+        clearCart(state: BookingCartState) {
+            state.items = [];
         }
     }
 });
@@ -51,7 +54,8 @@ const bookingCartSlice = createSlice({
 export const {
     addBookingToCart,
     increaseQuantity,
-    decreaseQuantity
+    decreaseQuantity,
+    clearCart
 } = bookingCartSlice.actions;
 
 export default bookingCartSlice.reducer;

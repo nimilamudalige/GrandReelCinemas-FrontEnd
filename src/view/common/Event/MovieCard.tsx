@@ -1,8 +1,10 @@
+// src/view/common/Event/MovieCard.tsx
 import { ModifyBooking } from "../ModifyBooking/ModifyBooking.tsx";
 import type { MovieData } from "../../../models/MovieData.ts";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../../store/store.ts";
 import { addBookingToCart } from "../../../slices/bookingCartSlice.ts";
+import { useNavigate } from 'react-router-dom';
 
 type MovieCardProps = {
     data: MovieData;
@@ -14,15 +16,16 @@ type CartItem = {
 };
 
 export function MovieCard({ data }: MovieCardProps) {
-    console.log("Rendering MovieCard for:", data.name, "ID:", data.id, "Image:", data.image);
     const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
 
     const item = useSelector((state: RootState) =>
         state.bookingCart.items.find((cartItem: CartItem) => cartItem.product.id === String(data.id))
     );
 
-    const addToCart = () => {
+    const handleAddTicket = () => {
         dispatch(addBookingToCart(data));
+        navigate('/booking'); // Navigate to booking cart after adding ticket
     };
 
     return (
@@ -44,7 +47,7 @@ export function MovieCard({ data }: MovieCardProps) {
                     ) : (
                         <button
                             className="grandreel-button w-full mt-3 py-2 bg-green-600 hover:bg-green-500 text-white rounded-md text-sm font-medium transition-all"
-                            onClick={addToCart}
+                            onClick={handleAddTicket}
                         >
                             Add Ticket
                         </button>
@@ -54,4 +57,3 @@ export function MovieCard({ data }: MovieCardProps) {
         </div>
     );
 }
-

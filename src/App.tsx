@@ -8,6 +8,8 @@ import { isTokenExpired } from "./auth/auth.ts";
 import { Unauthorized } from "./auth/Unauthorized.tsx";
 import {AddMovie} from "./view/pages/AddMovie/AddMovie.tsx";
 import {UpdateMovie} from "./view/pages/UpdateMovie/UpdateMovie.tsx";
+import {AddUser} from "./view/pages/AddUser/AddUser.tsx";
+import {Register} from "./view/pages/Register/Register.tsx";
 
 function App() {
     const navigate = useNavigate();
@@ -32,6 +34,10 @@ function App() {
             <Route path="/unauthorized" element={<Unauthorized />} />
             <Route path="/AddMovie" element={<AddMovie />} />
             <Route path="/UpdateMovie/:id" element={<UpdateMovie />} />
+            <Route path="/AddUser" element={<AddUser />} />
+            <Route path="/register" element={<Register />} />
+
+
         </Routes>
     );
 }
