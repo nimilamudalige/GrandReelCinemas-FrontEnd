@@ -42,3 +42,8 @@ It allows users to browse movies, view showtimes, book tickets, manage carts, an
 ![image alt](https://github.com/nimilamudalige/GrandReelCinemas-FrontEnd/blob/610f1a1a8d03c5d5a29186e1fc092d1d2799c6c7/Screenshot%20(175).png)
 
 ![image alt](https://github.com/nimilamudalige/GrandReelCinemas-FrontEnd/blob/5ffb04318bfa0ee2a0dca513078bb4b3277063aa/Screenshot%20(176).png)
+
+![image alt](https://github.com/nimilamudalige/GrandReelCinemas-FrontEnd/blob/115ec1ca33ed45cae94611103b2de15d8b7e1237/Screenshot%20(178).png)
+
+![image alt](https://github.com/nimilamudalige/GrandReelCinemas-FrontEnd/blob/115ec1ca33ed45cae94611103b2de15d8b7e1237/Screenshot%20(177).png)
+
